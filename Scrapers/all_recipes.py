@@ -12,6 +12,7 @@ recipe_titles = []
 recipe_img_links = []
 recipe_ingredients = []
 recipe_intructions = []
+recipe_nutritions = []
 
 recipes_dict = dict()
 
@@ -61,6 +62,10 @@ for i in range(2, 417):
             temp_recipe.append(recipes[i].find('p').text)
         
         recipe_intructions.append(temp_recipe)
+
+        # Nutrition
+        nutrition = page_soup_recipe.find('div',class_='partial recipe-nutrition-section').find('div',class_ ='section-body').text
+        recipe_nutritions.append(str(nutrition).strip())
     
         # Image
         temp_img = page_soup_recipe.find("div", { "class" : "docked-sharebar-content-container" })
@@ -74,7 +79,8 @@ for i in range(2, 417):
             "title" : recipe_titles[recipe_count], 
             "ingredients" : recipe_ingredients[recipe_count], 
             "instructions" : recipe_intructions[recipe_count], 
-            "picture_link" : recipe_img_links[recipe_count]
+            "picture_link" : recipe_img_links[recipe_count],
+            "nutrition_text" : recipe_nutritions[recipe_count]
         }
 
         # Done with the recipe
@@ -97,7 +103,7 @@ with open("../Datasets/dataset_ar.json", "w") as outfile:
     outfile.write(json_object)
 
 # Storing in CSV File
-dataset_ar = pd.DataFrame(list(zip(recipe_titles, recipe_ingredients, recipe_intructions, recipe_img_links)), 
-               columns =['title', 'ingredients', 'instructions', 'picture_link'])
+dataset_ar = pd.DataFrame(list(zip(recipe_titles, recipe_ingredients, recipe_intructions, recipe_img_links, recipe_nutritions)), 
+               columns =['title', 'ingredients', 'instructions', 'picture_link','nutrition_text'])
 
 dataset_ar.to_csv('../Datasets/dataset_all_recipes.csv')
