@@ -18,7 +18,7 @@ recipes_dict = []
 
 recipe_count = 0
 
-for i in range(4,10):
+for i in range(20,50):
     
     print("Page "+str(i)+" scraping started!!!")
     
@@ -59,8 +59,8 @@ for i in range(4,10):
             recipes = page_soup_recipe.find("ul", { "class" : "instructions-section" }).findAll("li", recursive=False)
             temp_recipe = []
             
-            for i in range(len(recipes)):
-                temp_recipe.append(recipes[i].find('p').text)
+            for j in range(len(recipes)):
+                temp_recipe.append(recipes[j].find('p').text)
             
             recipe_intructions.append(temp_recipe)
 
@@ -103,7 +103,7 @@ for i in range(4,10):
     dataset_ar = pd.DataFrame(list(zip(recipe_titles, recipe_ingredients, recipe_intructions, recipe_img_links, recipe_nutritions)), 
                columns =['title', 'ingredients', 'instructions', 'picture_link','nutrition_text'])
 
-    dataset_ar.to_csv(f'../Datasets/dataset_all_recipes_{i}.csv')
+    dataset_ar.to_csv(f'../Datasets/dataset_all_recipes_{str(i)}.csv')
     print("Page "+str(i)+" Scraped!!!")
          
 # Storing in CSV File
