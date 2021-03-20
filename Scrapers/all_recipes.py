@@ -18,7 +18,7 @@ recipes_dict = []
 
 recipe_count = 0
 
-for i in range(20,50):
+for i in range(31,100):
     
     print("Page "+str(i)+" scraping started!!!")
     
@@ -66,6 +66,7 @@ for i in range(20,50):
 
             # Nutrition
             nutrition = page_soup_recipe.find('div',class_='partial recipe-nutrition-section').find('div',class_ ='section-body').text
+            print(str(nutrition).strip())
             recipe_nutritions.append(str(nutrition).strip())
         
             # Image
